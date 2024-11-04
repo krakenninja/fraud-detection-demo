@@ -65,7 +65,7 @@ services:
   ### Flink Job Cluster ###
 
   flink-master:
-    image: ${FLINK_DOCKER_IMAGE_NAME:-flink-job-fraud-demo:latest}
+    image: ${FLINK_DOCKER_IMAGE_NAME:-fraud-detection-job:latest}
     ports:
       - "8081:8081"
     command: job-cluster --job-classname com.ververica.field.dynamicrules.Main -Djobmanager.rpc.address=flink-master -Dparallelism.default=2 --data-source kafka --rules-source kafka --alerts-sink kafka --rules-export-sink kafka --latency-sink kafka --kafka-host kafka-cp-kafka-headless --kafka-port 9092
@@ -73,7 +73,7 @@ services:
     - kafka-cp-kafka-headless
 
   flink-task-manager:
-    image: ${FLINK_DOCKER_IMAGE_NAME:-flink-job-fraud-demo:latest}
+    image: ${FLINK_DOCKER_IMAGE_NAME:-fraud-detection-job:latest}
     command: task-manager -Djobmanager.rpc.address=flink-master
     scale: ${DEFAULT_PARALLELISM:-2}
     depends_on:

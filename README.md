@@ -22,7 +22,7 @@ In order to run the demo locally, execute the following commands which build the
 git clone https://github.com/afedulov/fraud-detection-demo
 cd fraud-detection-demo
 docker build -t demo-fraud-webapp:latest -f webapp/webapp.Dockerfile webapp/
-docker build -t flink-job-fraud-demo:latest -f flink-job/Dockerfile flink-job/ 
+docker build -t fraud-detection-job:latest -f fraud-detection-job/Dockerfile fraud-detection-job/ 
 docker-compose -f docker-compose-local-job.yaml up
 ```
 
