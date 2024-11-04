@@ -12,7 +12,7 @@ COPY src/react-app-env.d.ts src
 RUN npm run build
 
 # --- Maven Build
-FROM maven:3.6.2-jdk-8-openj9 as maven-build
+FROM maven:3.8.6-openjdk-8 as maven-build
 WORKDIR /home/maven/work
 
 COPY pom.xml .
@@ -20,12 +20,12 @@ RUN mvn -B -e -C -T 1C org.apache.maven.plugins:maven-dependency-plugin:3.1.1:go
 COPY . .
 COPY --from=ui-build /home/node/app/build /home/maven/work/target/classes/static/
 RUN mvn -B -e -o -T 1C verify
-RUN mv target/demo-fraud-webapp*.jar target/demo-fraud-webapp.jar
+RUN mv target/fraud-detection-webapp*.jar target/fraud-detection-webapp.jar
 
 # --- Main container
 FROM openjdk:8-jdk-alpine as main
 
-COPY --from=maven-build /home/maven/work/target/demo-fraud-webapp.jar .
+COPY --from=maven-build /home/maven/work/target/fraud-detection-webapp.jar .
 EXPOSE 5656
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=cloud","-jar","demo-fraud-webapp.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=dev","-jar","fraud-detection-webapp.jar"]

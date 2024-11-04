@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.ververica</groupId>
-	<artifactId>demo-fraud-webapp</artifactId>
+	<artifactId>fraud-detection-webapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>webapp</name>
+	<name>fraud-detection-webapp</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
