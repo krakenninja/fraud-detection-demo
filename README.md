@@ -19,7 +19,7 @@ Demo is bundled in a self-contained package. In order to build it from sources y
 In order to run the demo locally, execute the following commands which build the project from sources and start all required services, including the Apache Flink and Apache Kafka clusters.
 
 ```bash
-git clone -b demo-confluentcloud-flink https://github.com/krakenninja/fraud-detection-demo
+git clone -b feature/poc-confluentcloud-flink https://github.com/krakenninja/fraud-detection-demo
 cd fraud-detection-demo
 mvn clean install -f fraud-detection-job/pom.xml
 docker build -t fraud-detection-webapp:latest -f fraud-detection-webapp/webapp.Dockerfile fraud-detection-webapp/
