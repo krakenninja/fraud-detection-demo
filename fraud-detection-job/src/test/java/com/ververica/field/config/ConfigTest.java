@@ -20,9 +20,8 @@ package com.ververica.field.config;
 
 import static com.ververica.field.config.Parameters.KAFKA_HOST;
 import static com.ververica.field.config.Parameters.KAFKA_PORT;
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class ConfigTest {
 
@@ -33,7 +32,11 @@ public class ConfigTest {
     Config config = Config.fromParameters(parameters);
 
     final String kafkaHost = config.get(KAFKA_HOST);
-    assertEquals("Wrong config parameter retrived", "host-from-args", kafkaHost);
+    assertEquals(
+        "host-from-args", 
+        kafkaHost,
+        "Wrong config parameter retrived"
+    );
   }
 
   @Test
@@ -43,6 +46,10 @@ public class ConfigTest {
     Config config = Config.fromParameters(parameters);
 
     final Integer kafkaPort = config.get(KAFKA_PORT);
-    assertEquals("Wrong config parameter retrived", new Integer(9092), kafkaPort);
+    assertEquals(
+        new Integer(9092), 
+        kafkaPort,
+        "Wrong config parameter retrived"
+    );
   }
 }

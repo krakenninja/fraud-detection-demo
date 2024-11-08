@@ -18,16 +18,14 @@
 
 package com.ververica.field.dynamicrules;
 
-import static org.junit.Assert.assertEquals;
-
 import com.ververica.field.dynamicrules.Rule.AggregatorFunctionType;
 import com.ververica.field.dynamicrules.Rule.LimitOperatorType;
 import com.ververica.field.dynamicrules.Rule.RuleState;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class RuleParserTest {
 
@@ -43,19 +41,56 @@ public class RuleParserTest {
     RuleParser ruleParser = new RuleParser();
     Rule rule1 = ruleParser.fromString(ruleString1);
 
-    assertEquals("ID incorrect", 1, (int) rule1.getRuleId());
-    Assert.assertEquals("Rule state incorrect", RuleState.ACTIVE, rule1.getRuleState());
-    assertEquals("Key names incorrect", lst("taxiId", "driverId"), rule1.getGroupingKeyNames());
-    assertEquals("Unique names incorrect", lst(), rule1.getUnique());
-    assertEquals("Cumulative key incorrect", "totalFare", rule1.getAggregateFieldName());
-    Assert.assertEquals(
-        "Aggregator function incorrect",
+    assertEquals(
+        1, 
+        (int) rule1.getRuleId(),
+        "ID incorrect"
+    );
+    assertEquals(
+        RuleState.ACTIVE, 
+        rule1.getRuleState(),
+        "Rule state incorrect"
+    );
+    assertEquals(
+        lst(
+            "taxiId", 
+            "driverId"
+        ), 
+        rule1.getGroupingKeyNames(),
+        "Key names incorrect"
+    );
+    assertEquals(
+        lst(), 
+        rule1.getUnique(),
+        "Unique names incorrect"
+    );
+    assertEquals(
+        "totalFare", 
+        rule1.getAggregateFieldName(),
+        "Cumulative key incorrect"
+    );
+    assertEquals(
         AggregatorFunctionType.SUM,
-        rule1.getAggregatorFunctionType());
-    Assert.assertEquals(
-        "Limit operator incorrect", LimitOperatorType.GREATER, rule1.getLimitOperatorType());
-    assertEquals("Limit incorrect", BigDecimal.valueOf(5), rule1.getLimit());
-    assertEquals("Window incorrect", 20, (int) rule1.getWindowMinutes());
+        rule1.getAggregatorFunctionType(),
+        "Aggregator function incorrect"
+    );
+    assertEquals(
+        LimitOperatorType.GREATER, 
+        rule1.getLimitOperatorType(),
+        "Limit operator incorrect"
+    );
+    assertEquals(
+        BigDecimal.valueOf(
+            5
+        ), 
+        rule1.getLimit(),
+        "Limit incorrect"
+    );
+    assertEquals(
+        20, 
+        (int) rule1.getWindowMinutes(),
+        "Window incorrect"
+    );
   }
 
   @Test
@@ -76,18 +111,55 @@ public class RuleParserTest {
     RuleParser ruleParser = new RuleParser();
     Rule rule1 = ruleParser.fromString(ruleString1);
 
-    assertEquals("ID incorrect", 1, (int) rule1.getRuleId());
-    Assert.assertEquals("Rule state incorrect", RuleState.ACTIVE, rule1.getRuleState());
-    assertEquals("Key names incorrect", lst("taxiId", "driverId"), rule1.getGroupingKeyNames());
-    assertEquals("Unique names incorrect", lst(), rule1.getUnique());
-    assertEquals("Cumulative key incorrect", "totalFare", rule1.getAggregateFieldName());
-    Assert.assertEquals(
-        "Aggregator function incorrect",
+    assertEquals(
+        1,
+        (int) rule1.getRuleId(),
+        "ID incorrect"
+    );
+    assertEquals(
+        RuleState.ACTIVE, 
+        rule1.getRuleState(),
+        "Rule state incorrect"
+    );
+    assertEquals(
+        lst(
+            "taxiId", 
+            "driverId"
+        ), 
+        rule1.getGroupingKeyNames(),
+        "Key names incorrect"
+    );
+    assertEquals(
+        lst(), 
+        rule1.getUnique(),
+        "Unique names incorrect"
+    );
+    assertEquals(
+        "totalFare", 
+        rule1.getAggregateFieldName(),
+        "Cumulative key incorrect"
+    );
+    assertEquals(
         AggregatorFunctionType.SUM,
-        rule1.getAggregatorFunctionType());
-    Assert.assertEquals(
-        "Limit operator incorrect", LimitOperatorType.GREATER, rule1.getLimitOperatorType());
-    assertEquals("Limit incorrect", BigDecimal.valueOf(50), rule1.getLimit());
-    assertEquals("Window incorrect", 20, (int) rule1.getWindowMinutes());
+        rule1.getAggregatorFunctionType(),
+        "Aggregator function incorrect"
+    );
+    assertEquals(
+        LimitOperatorType.GREATER, 
+        rule1.getLimitOperatorType(),
+        "Limit operator incorrect"
+    );
+    assertEquals(
+        BigDecimal.valueOf(
+            50
+        ), 
+        rule1.getLimit(),
+        "Limit incorrect"
+    );
+    assertEquals(
+        20, 
+        (int) rule1.getWindowMinutes(),
+        "Window incorrect"
+    );
   }
 }

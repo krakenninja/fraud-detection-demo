@@ -35,7 +35,7 @@ import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
 import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.streaming.runtime.streamrecord.StreamRecord;
 import org.apache.flink.streaming.util.TestHarnessUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Tests for the {@link RulesEvaluator}. */
 public class RulesEvaluatorTest {
