@@ -21,9 +21,8 @@ In order to run the demo locally, execute the following commands which build the
 ```bash
 git clone -b feature/poc-confluentcloud-flink https://github.com/krakenninja/fraud-detection-demo
 cd fraud-detection-demo
-mvn clean install -f fraud-detection-job/pom.xml
+mvn clean install jib:dockerBuild -f fraud-detection-job/pom.xml
 docker build -t fraud-detection-webapp:latest -f fraud-detection-webapp/webapp.Dockerfile fraud-detection-webapp/
-docker build -t fraud-detection-job:latest -f fraud-detection-job/mvn.Dockerfile fraud-detection-job/ 
 docker compose -f docker-compose-local-job.yaml up
 ```
 
