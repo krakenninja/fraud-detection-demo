@@ -182,46 +182,6 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.7.1</version>
-                <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <includeBaseDirectory>false</includeBaseDirectory>
-                    <useProjectArtifact>false</useProjectArtifact>
-                    <outputDirectory>${jib.dist.dir}</outputDirectory>
-                    <inlineDescriptors>
-                        <inlineDescriptor>
-                            <id>dynamic-fraud-detection-assembly</id>
-                            <formats>
-                                <format>dir</format>
-                            </formats>
-                            <files>
-                                <file>
-                                    <source>${project.build.directory}/${project.build.finalName}-flink-${flink.version}.jar</source>
-                                    <outputDirectory>../../lib</outputDirectory>
-                                    <destName>job.jar</destName>
-                                </file>
-                                <file>
-                                    <source>${basedir}/docker-entrypoint.sh</source>
-                                    <outputDirectory>../../root</outputDirectory>
-                                    <destName>docker-entrypoint.sh</destName>
-                                </file>
-                            </files>
-                        </inlineDescriptor>
-                    </inlineDescriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> 
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
             <plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
                 <artifactId>copy-rename-maven-plugin</artifactId>
@@ -251,58 +211,9 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.4</version>
-                <configuration>
-                    <skip>${jib.skip.docker.build}</skip>
-                    <from>
-                        <image>flink:1.15-java8</image>
-                    </from>
-                    <to>
-                        <image>fraud-detection-job</image>
-                        <tags>
-                            <tag>${project.version}</tag>
-                        </tags>
-                    </to>
-                    <container>
-                        <appRoot>${jib.container.docker.approot.path}</appRoot>
-                        <user>flink</user>
-                        <ports>
-                            <port>8081</port>
-                            <port>6123</port>
-                        </ports>
-                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-                        <entrypoint>
-                            <item>/docker-entrypoint.sh</item>
-                        </entrypoint>
-                    </container>
-                    <extraDirectories>
-                        <permissions>
-                            <permission>
-                                <file>/docker-entrypoint.sh</file>
-                                <mode>755</mode>
-                            </permission>
-                        </permissions>
-                        <paths>
-                            <!-- copies from 'target/dynamic-fraud-detection-1.2-flink-1.15.1.jar' into '/opt/flink/' on the container -->
-                            <path>
-                                <from>${jib.dist.lib.dir}</from>
-                                <into>${jib.container.docker.approot.path}/lib</into>
-                            </path>
-                            <!-- copies from 'docker-entrypoint.sh' into '/' on the container -->
-                            <path>
-                                <from>${jib.dist.root.dir}</from>
-                                <into>/</into>
-                            </path>
-                        </paths>
-                    </extraDirectories>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
+    
     <repositories>
         <repository>
             <id>central</id>
@@ -323,4 +234,66 @@
             <url>https://packages.confluent.io/maven/</url>
         </repository>
     </repositories>
+    
+    <profiles>
+        <profile>
+            <id>local-deployment</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.4.4</version>
+                        <configuration>
+                            <skip>${jib.skip.docker.build}</skip>
+                            <from>
+                                <image>flink:1.15-java8</image>
+                            </from>
+                            <to>
+                                <image>fraud-detection-job</image>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </to>
+                            <container>
+                                <appRoot>${jib.container.docker.approot.path}</appRoot>
+                                <user>flink</user>
+                                <ports>
+                                    <port>8081</port>
+                                    <port>6123</port>
+                                </ports>
+                                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                                <entrypoint>
+                                    <item>/docker-entrypoint.sh</item>
+                                </entrypoint>
+                            </container>
+                            <extraDirectories>
+                                <permissions>
+                                    <permission>
+                                        <file>/docker-entrypoint.sh</file>
+                                        <mode>755</mode>
+                                    </permission>
+                                </permissions>
+                                <paths>
+                                    <!-- copies from 'target/dynamic-fraud-detection-1.2-flink-1.15.1.jar' into '/opt/flink/' on the container -->
+                                    <path>
+                                        <from>${jib.dist.lib.dir}</from>
+                                        <into>${jib.container.docker.approot.path}/lib</into>
+                                    </path>
+                                    <!-- copies from 'docker-entrypoint.sh' into '/' on the container -->
+                                    <path>
+                                        <from>${jib.dist.root.dir}</from>
+                                        <into>/</into>
+                                    </path>
+                                </paths>
+                            </extraDirectories>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
