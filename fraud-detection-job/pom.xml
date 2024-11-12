@@ -253,7 +253,7 @@
                                 <image>flink:1.15-java8</image>
                             </from>
                             <to>
-                                <image>fraud-detection-job:${project.version}</image>
+                                <image>fraud-detection-job</image>
                                 <tags>
                                     <tag>${project.version}</tag>
                                 </tags>
