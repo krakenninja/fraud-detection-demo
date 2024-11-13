@@ -24,6 +24,7 @@ import static com.ververica.field.config.Parameters.STRING_PARAMS;
 
 import com.ververica.field.config.Config;
 import com.ververica.field.config.Parameters;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.java.utils.ParameterTool;
 
 import org.springframework.boot.CommandLineRunner;
@@ -31,8 +32,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@Slf4j
 public class Main implements CommandLineRunner {
-
+    
   public static void main(String[] args) throws Exception {
     SpringApplication.run(
         Main.class, 
@@ -40,13 +42,28 @@ public class Main implements CommandLineRunner {
     );
 
   }
+  
+    private final RulesEvaluator rulesEvaluator;
+
+    public Main(RulesEvaluator rulesEvaluator) {
+        this.rulesEvaluator = rulesEvaluator;
+    }
 
     @Override
     public void run(String... args) throws Exception {
+      log.info(
+        "Running rules evaluator `{}` type ...",
+        rulesEvaluator.getClass().getName()
+      );
       ParameterTool tool = ParameterTool.fromArgs(args);
       Parameters inputParams = new Parameters(tool);
       Config config = new Config(inputParams, STRING_PARAMS, INT_PARAMS, BOOL_PARAMS);
-      RulesEvaluator rulesEvaluator = new RulesEvaluator(config);
-      rulesEvaluator.run();
+      rulesEvaluator.setConfig(
+        config
+      ).run();
+      log.info(
+        "Rules evaluator `{}` type RUN OK",
+        rulesEvaluator.getClass().getName()
+      );
     }
 }

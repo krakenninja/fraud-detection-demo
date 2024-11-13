@@ -1,0 +1,16 @@
+spring:
+    application:
+        name: Dynamic Fraud Detection Job Manager (DEMO)
+    profiles:
+        # default active spring profile "local-deployment" ; override by setting 
+        # switch/parameter '--spring.profiles.active=xxxx' , where supported 
+        # 'xxx' are : 
+        # 1.    local-deployment
+        # 2.    confluentcloud-deployment
+        active: local-deployment
+
+logging:
+    pattern: 
+        console: %d{HH:mm:ss.SSS} [%thread] %-5level %logger{60} %X{sourceThread} - %msg%n
+    level:
+        root: INFO
