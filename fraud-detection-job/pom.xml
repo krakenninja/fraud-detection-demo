@@ -16,7 +16,15 @@
 
     <properties>
         <java.version>8</java.version>
+        
         <flink.version>1.15.1</flink.version>
+        <google.cloud.pubsub.version>1.51.0</google.cloud.pubsub.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
+        <maven.surefire.plugin.version>3.5.2</maven.surefire.plugin.version>
+        <copy.rename.maven.plugin.version>1.0.1</copy.rename.maven.plugin.version>
+        <jib.maven.plugin.version>3.4.4</jib.maven.plugin.version>
+        
         <jib.skip.docker.build>false</jib.skip.docker.build>
         <jib.dist.dir>${project.build.directory}/jib-dist</jib.dist.dir>
         <jib.dist.lib.dir>${jib.dist.dir}/lib</jib.dist.lib.dir>
@@ -63,7 +71,7 @@
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-pubsub</artifactId>
-            <version>1.51.0</version>
+            <version>${google.cloud.pubsub.version}</version>
         </dependency>
 
         <!-- Log4j Dependencies -->
@@ -131,7 +139,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <release>${java.version}</release>
                     <encoding>UTF-8</encoding>
@@ -142,7 +150,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>${maven.shade.plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -169,7 +177,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.2</version>
+                <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>**/*IntegrationTest.java</exclude>
@@ -191,7 +199,7 @@
             <plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
                 <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>1.0.1</version>
+                <version>${copy.rename.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>dynamic-fraud-detection-assembly-jar</id>
@@ -252,7 +260,7 @@
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>
-                        <version>3.4.4</version>
+                        <version>${jib.maven.plugin.version}</version>
                         <configuration>
                             <skip>${jib.skip.docker.build}</skip>
                             <from>
