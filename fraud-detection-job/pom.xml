@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version><!-- have to downgrade for Java 8 support -->
+        <version>2.7.18</version><!-- have to downgrade for Java 11 support as the demo uses flink 1.15 image Java 11 ; upgrading to a latest flink does not work -->
     </parent>
 
     <groupId>com.ververica.field.dynamicrules</groupId>
@@ -17,7 +17,7 @@
     <properties>
         <java.version>8</java.version>
         
-        <flink.version>1.15.1</flink.version>
+        <flink.version>1.15.4</flink.version>
         <google.cloud.pubsub.version>1.51.0</google.cloud.pubsub.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
@@ -264,7 +264,7 @@
                         <configuration>
                             <skip>${jib.skip.docker.build}</skip>
                             <from>
-                                <image>flink:1.15-java8</image>
+                                <image>flink:1.15.4-java11</image><!-- latest 1.15.x series "https://hub.docker.com/_/flink/tags?name=1.15" -->
                             </from>
                             <to>
                                 <image>fraud-detection-job</image>

@@ -10,7 +10,5 @@ spring:
         active: local-deployment
 
 logging:
-    pattern: 
-        console: %d{HH:mm:ss.SSS} [%thread] %-5level %logger{60} %X{sourceThread} - %msg%n
     level:
         root: INFO
